@@ -17,7 +17,6 @@ local function check()
     return false
 end
 
--- For Auto Kill and FallenParts
 spawn(function()
     game:GetService('RunService').Stepped:connect(function()
         setsimulationradius(math.huge,math.huge)
