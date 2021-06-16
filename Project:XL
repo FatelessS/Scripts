@@ -22,6 +22,8 @@ spawn(function()
     game:GetService('RunService').Stepped:connect(function()
         setsimulationradius(math.huge,math.huge)
         workspace.FallenPartsDestroyHeight = math.huge-math.huge
+        game:GetService("Players").LocalPlayer.PlayerGui.StatusGui.Enabled = false
+        game:GetService("Workspace").LocalPlayer.Character.Head.Overhead:Remove()
     end)
 end)
 
@@ -70,12 +72,24 @@ spawn(function()
 end)
 
 spawn(function()
-    while wait() do
-        pcall(function()
-            game:GetService("Workspace").LocalPlayer.Character.Head.Overhead:Remove()
-        end)
-    end
+    game.Players.LocalPlayer.PlayerValues.Race.Changed:Connect(function()
+if not check() then
+    game.StarterGui:SetCore("SendNotification", {
+        Title = "Fail!";
+            Text = "You got: "..tostring(game.Players.LocalPlayer.PlayerValues.Race.Value);
+        Icon = nil;
+    Duration = 1;
+})
+elseif check() then
+game.StarterGui:SetCore("SendNotification",{
+        Title = "Success!";
+            Text = "You got: "..tostring(game.Players.LocalPlayer.PlayerValues.Race.Value);
+        Icon = nil;
+    Duration = 1;
+})
+end
 end)
+    end)
 
 spawn(function()
     while wait(.4) do
