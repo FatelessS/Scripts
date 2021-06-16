@@ -1,7 +1,3 @@
-shared.Enabled = true
-_G.Mob = "Rahgan's Overseers"
-_G.Races = {"Frieza Race","Fanalis","Celestial Dragon","Uzumaki Clan","Human (Hybrid)"}
-
 local player = game.Players.LocalPlayer
 local char = player.Character
 
