@@ -76,14 +76,14 @@ if not check() then
     game.StarterGui:SetCore("SendNotification", {
         Title = "Fail!";
             Text = "You got: "..tostring(game.Players.LocalPlayer.PlayerValues.Race.Value);
-        Icon = nil;
+        Icon = "rbxassetid://2541869220";
     Duration = 1;
 })
 elseif check() then
 game.StarterGui:SetCore("SendNotification",{
         Title = "Success!";
             Text = "You got: "..tostring(game.Players.LocalPlayer.PlayerValues.Race.Value);
-        Icon = nil;
+        Icon = "rbxassetid://2541869220";
     Duration = 1;
 })
 end
