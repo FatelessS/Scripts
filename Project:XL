@@ -17,14 +17,14 @@ local function check()
     return false
 end
 
-spawn(function()
     game:GetService('RunService').Stepped:connect(function()
         setsimulationradius(math.huge,math.huge)
         workspace.FallenPartsDestroyHeight = math.huge-math.huge
+        pcall(function()
         game:GetService("Players").LocalPlayer.PlayerGui.StatusGui.Enabled = false
         game:GetService("Workspace").LocalPlayer.Character.Head.Overhead:Remove()
+        end)
     end)
-end)
 
 spawn(function()
     while game:GetService("RunService").Heartbeat:wait() do
