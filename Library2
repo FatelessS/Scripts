@@ -1,4 +1,4 @@
--- made by coolmatt72#6707 (coolmatt72) on v3rm aswell as walter !!!#4155 monke hub discord
+-- made by coolmatt72#6707 (coolmatt72)
 local cc = game.Workspace.CurrentCamera
 local udim2 = {}
 local instance = {}
@@ -42,7 +42,7 @@ local ddenabled = false
 local ddcontent = nil
 local dragging = false
 local dragX,dragY = 0,0
-local font = 3
+local font = 2
 --
 local cursor
 local colorpicker
@@ -187,7 +187,7 @@ instance.new = function(type)
 		instance = frame
 	elseif type == "TextLabel" or "textlabel" then
 		local text = Drawing.new("Text")
-		text.Font = 2
+		text.Font = font
 		text.Visible = true
 		text.Outline = true
 		text.Center = false
@@ -973,7 +973,7 @@ library.new = function(info)
 	label.Text = info.name
 	label.Size = 12
 	label.Position = udim2.pnew(0,5,0.5,-(label.TextBounds.Y/2),topbar)
-	label.Color = info.titlecolor or Color3.fromRGB(255,255,255)
+	label.Color = Color3.fromRGB(255, 153, 0)
 	local borders = {
 		mainui = {
 			border1 = border1,
