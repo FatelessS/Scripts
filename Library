@@ -1,4 +1,4 @@
--- made by coolmatt72#6707 (coolmatt72)
+-- made by coolmatt72#6707 (coolmatt72) on v3rm aswell as walter !!!#4155 monke hub discord
 local cc = game.Workspace.CurrentCamera
 local udim2 = {}
 local instance = {}
@@ -187,7 +187,7 @@ instance.new = function(type)
 		instance = frame
 	elseif type == "TextLabel" or "textlabel" then
 		local text = Drawing.new("Text")
-		text.Font = 3
+		text.Font = 4
 		text.Visible = true
 		text.Outline = true
 		text.Center = false
