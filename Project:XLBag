@@ -10,11 +10,11 @@ end
 --game:GetService("Players").LocalPlayer.Backpack.Bag.BagPart.Overhead.ItemName
 
 spawn(function()
-    while wait(.8) do
+    while wait(.4) do
         if shared.Enabled then
             if game.Players.LocalPlayer.Backpack:FindFirstChild("Bag") then
                 game.Players.LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.Bag)
-                wait(.6)
+                wait(.2)
                 if namecheck(game:GetService("Players").LocalPlayer.Character.Bag.BagPart.Overhead.ItemName) then
                 if _G.AutoEquip then
                 game:GetService("ReplicatedStorage").RemoteEvents.ItemRemote:FireServer()
@@ -22,7 +22,7 @@ spawn(function()
                 shared.Enabled = false
                 else
                     game.Players.LocalPlayer.Character.Bag.Parent = game.Players.LocalPlayer.Backpack
-                    wait(.2)
+                    wait(.1)
                     game:GetService("ReplicatedStorage").RemoteEvents.ClearInventoryRemote:FireServer()
                 end
             elseif not game.Players.LocalPlayer.Backpack:FindFirstChild("Bag") then
