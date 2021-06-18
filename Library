@@ -1,4 +1,3 @@
--- made by coolmatt72#6707 (coolmatt72)
 local cc = game.Workspace.CurrentCamera
 local udim2 = {}
 local instance = {}
@@ -1253,7 +1252,7 @@ library.newtextbox = function(info)
 	local open = false
 	local y = 0
 	local original = info.name
-	local lower = info.lower or false
+	local lower = true
 	for i,v in pairs(sections) do if v.section == info.section then open = v.open end end
 	for i,v in pairs(sections) do if v.section == info.section then y = v.yaxis end end
 	--
