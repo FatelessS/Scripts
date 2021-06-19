@@ -1,0 +1,166 @@
+local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/FatelessS/Scripts/main/Library"))()
+
+local racefarm
+local race
+local hitkill
+local bag
+local bagitem
+local bagfarm
+local mentor
+local mentorfarm
+local autoequip
+local moneyfarm
+
+library.new({size = Vector2.new(315,400),name = "Project: XL",mousedisable = true})
+local tab = library.newtab({name = "Main"})
+local sectionz = library.newsection({name = "Settings",tab = tab,side = "right",size = 400})
+local section2 = library.newsection({name = "Autofarm",tab = tab,side = "left",size = 400})
+
+
+library.newtoggle({name = "Money",section = section2,tab = tab,callback = function(val)
+    moneyfarm = val
+end})
+library.newtoggle({name = "Race",section = section2,tab = tab,callback = function(val)
+    racefarm = val
+end})
+library.newtoggle({name = "Bag",section = section2,tab = tab,callback = function(val)
+    bagfarm = val
+end})
+library.newtoggle({name = "Mentor",section = section2,tab = tab,callback = function(val)
+    mentorfarm = val
+    end})
+library.newdropdown({name = "Race",options = {"Human","Kumate Tribe","Skypiean","Torino Tribe","Vermin","A Bizarre Human","Human (Hybrid)","Mink","Celestial Dragon","Frieza Race","Fanalis","Uzumaki Clan"},section = sectionz,tab = tab,callback = function(val)
+    race = val
+    print(val)
+end})
+library.newtoggle({name = "One Shot",section = sectionz,tab = tab,callback = function(val)
+    hitkill = val
+    end})
+library.newdropdown({name = "Bag Type",options = {"Random Accessory","Random Armor"},section = sectionz,tab = tab,callback = function(val)
+    bag = val
+end})
+library.newtextbox({name = "Bag Item",section = sectionz,tab = tab,callback = function(val)
+    bagitem = val
+    print(val)
+    end})
+library.newdropdown({name = "Mentor",options = {"Hisashi Midoriya","Cain Barzad","Present Mic","Ace","Enel","Whitebeard","Dabi","Gecko Moria"},section = sectionz,tab = tab,callback = function(val)
+    mentor = val
+end})
+library.newtoggle({name = "Auto Equip",section = sectionz,tab = tab,callback = function(val)
+    autoequip = val
+    end})
+library.init()
+
+local player = game.Players.LocalPlayer
+local char = player.Character
+
+spawn(function()
+    game:GetService('RunService').Stepped:connect(function()
+        setsimulationradius(math.huge,math.huge)
+        workspace.FallenPartsDestroyHeight = math.huge-math.huge
+        pcall(function()
+            if racefarm then
+        game:GetService("Players").LocalPlayer.PlayerGui.StatusGui.Enabled = false
+        game:GetService("Workspace").LocalPlayer.Character.Head.Overhead:Remove()
+        end
+        end)
+    end)
+end)
+
+spawn(function()
+    while game:GetService("RunService").Heartbeat:wait() do
+        pcall(function()
+        if racefarm or moneyfarm and game.Players.LocalPlayer.Character.Humanoid.Health > 0 then
+            for i,v in pairs(game:GetService("Workspace").Live["Rahgan's Overseers"]:GetChildren()) do
+                if v.Humanoid.Health > 0 and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") then
+                    pcall(function() char:FindFirstChild("HumanoidRootPart").CFrame = v.HumanoidRootPart.CFrame end)
+                    if char:FindFirstChild(tostring(game:GetService("Players").LocalPlayer.PlayerValues.Ability.Value)) then
+                        game:GetService("ReplicatedStorage").RemoteEvents.BladeCombatRemote:FireServer(true)
+                    end
+                    v.Humanoid.HealthChanged:Connect(function()
+                        if hitkill then
+                        v.Humanoid.Health = 0
+                        end
+                    end)
+                end
+            end
+        end
+end)
+        end
+end)
+
+spawn(function()
+    while wait() do
+        if racefarm or moneyfarm then
+            for i,v in pairs(player.Backpack:GetChildren()) do
+                if v:FindFirstChild("Combat Script") then
+                    player.Backpack[game:GetService("Players").LocalPlayer.PlayerValues.Ability.Value].Parent = game.Players.LocalPlayer.Character
+                end
+            end
+    end
+    end
+end)
+
+spawn(function()
+    while wait() do
+        if racefarm or moneyfarm then
+            if not player.PlayerGui:WaitForChild("Menu"):WaitForChild("QuestFrame").Visible then
+                pcall(function()
+                    game:GetService("ReplicatedStorage").RemoteEvents.ChangeQuestRemote:FireServer(game:GetService("ReplicatedStorage").Quests["Defeat 4 of Rahgan's Overseers"])
+                end)
+            end
+        end
+    end
+end)
+
+spawn(function()
+    while wait(.4) do
+        if racefarm and game.Players.LocalPlayer.PlayerValues.Race.Value ~= race then
+            if game.Players.LocalPlayer.PlayerValues.Race.Value ~= race and game.Players.LocalPlayer.Backpack:FindFirstChild("Heart") then
+                game.Players.LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.Heart)
+                wait(.2)
+                game:GetService("ReplicatedStorage").RemoteEvents.ItemRemote:FireServer()
+            elseif game.Players.LocalPlayer.PlayerValues.Race.Value ~= race and not game.Players.LocalPlayer.Backpack:FindFirstChild("Heart") then
+                game:GetService("ReplicatedStorage").RemoteEvents.BuyItemRemote:FireServer("Heart")
+            end
+        end
+    end
+end)
+
+spawn(function()
+    while wait(.4) do
+        if bagfarm then
+            if game.Players.LocalPlayer.Backpack:FindFirstChild("Bag") then
+               if string.lower(game:GetService("Players").LocalPlayer.Backpack.Bag.BagPart.Overhead.ItemName.Text) == string.lower(bagitem) then
+                if autoequip then
+                game:GetService("ReplicatedStorage").RemoteEvents.ItemRemote:FireServer()
+                end
+                bagfarm = false
+                else
+                    game:GetService("ReplicatedStorage").RemoteEvents.ClearInventoryRemote:FireServer()
+                end
+            elseif not game.Players.LocalPlayer.Backpack:FindFirstChild("Bag") then
+                game:GetService("ReplicatedStorage").RemoteEvents.BuyItemRemote:FireServer(bag)
+            end
+        end
+    end
+end)
+
+spawn(function()
+    while wait(.7) do
+        if mentorfarm then
+            if game.Players.LocalPlayer.Backpack:FindFirstChild(string.lower(mentor)) then
+                game.Players.LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack[string.lower(mentor)])
+                wait(.5)
+                if autoequip then
+                game:GetService("ReplicatedStorage").RemoteEvents.ItemRemote:FireServer()
+                end
+                mentorfarm = false
+            else
+                game:GetService("ReplicatedStorage").RemoteEvents.ClearInventoryRemote:FireServer()
+                wait(.4)
+                game:GetService("ReplicatedStorage").RemoteEvents.BuyItemRemote:FireServer("Random Mentor")
+            end
+    end
+    end
+end)
